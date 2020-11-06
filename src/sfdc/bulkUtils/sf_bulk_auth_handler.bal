@@ -38,6 +38,7 @@ public class SalesforceBulkAuthHandler {
         var authProvider = self.authProvider;
         var token = authProvider.generateToken();
         if (token is string) {
+            req.setHeader(AUTHORIZATION, BEARER+token);
             req.setHeader(X_SFDC_SESSION, token);
             return req;
         } else {

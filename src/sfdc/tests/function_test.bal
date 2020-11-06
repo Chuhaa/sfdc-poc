@@ -66,34 +66,32 @@ function testCreateRecord() {
 //bulk
 @test:Config {}
 function insertJson() {
-    BulkClient bulkClient = baseClient->getBulkClient();
-
-    log:printInfo("bulkClient -> insertJson");
+    log:printInfo("baseClient -> insertJson");
     string batchId = "";
 
     json contacts = [
-            {
-                description: "Created_from_Ballerina_Sf_Bulk_API",
-                FirstName: "Morne",
-                LastName: "Morkel",
-                Title: "Professor Grade 03",
-                Phone: "0442226670",
-                Email: "morne89@gmail.com",
-                My_External_Id__c: "201"
-            },
-            {
-                description: "Created_from_Ballerina_Sf_Bulk_API",
-                FirstName: "Andi",
-                LastName: "Flower",
-                Title: "Professor Grade 03",
-                Phone: "0442216170",
-                Email: "flower.andie@gmail.com",
-                My_External_Id__c: "202"
-            }
-        ];
+        {
+            description: "Created_from_Ballerina_Sf_Bulk_API",
+            FirstName: "Morne",
+            LastName: "Morkel",
+            Title: "Professor Grade 03",
+            Phone: "0442226670",
+            Email: "morne89@gmail.com",
+            My_External_Id__c: "201"
+        },
+        {
+            description: "Created_from_Ballerina_Sf_Bulk_API",
+            FirstName: "Andi",
+            LastName: "Flower",
+            Title: "Professor Grade 03",
+            Phone: "0442216170",
+            Email: "flower.andie@gmail.com",
+            My_External_Id__c: "202"
+        }
+    ];
 
     //create job
-    error|BulkJob insertJob = bulkClient->creatJob("insert", "Contact", "JSON");
+    error|BulkJob insertJob = baseClient->creatJob("insert", "Contact", "JSON");
     if (insertJob is BulkJob) {
 
         //add json content
@@ -106,7 +104,7 @@ function insertJson() {
         }
 
         //get job info
-        error|JobInfo jobInfo = bulkClient->getJobInfo(insertJob);
+        error|JobInfo jobInfo = baseClient->getJobInfo(insertJob);
         if (jobInfo is JobInfo) {
             test:assertTrue(jobInfo.id.length() > 0, msg = "Getting job info failed.");
         } else {

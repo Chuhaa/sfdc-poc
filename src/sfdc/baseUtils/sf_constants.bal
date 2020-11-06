@@ -108,6 +108,12 @@ final string ACCOUNT = "Account";
 # Holds the value of "X-SFDC-Session" which used as Authorization header name of bulk API.
 const X_SFDC_SESSION = "X-SFDC-Session";
 
+# Constant field `AUTHORIZATION`. 
+# Holds the value of "Authorization" which used as Authorization header name of REST API.
+const AUTHORIZATION = "Authorization";
+
+# Constant field `BEARER`. Holds the value of "Bearer".
+const BEARER = "Bearer ";
 
 # Constant field `INVALID_SESSION_ID`. 
 # Holds the value of "InvalidSessionId" which used to identify Unauthorized 401 response.
