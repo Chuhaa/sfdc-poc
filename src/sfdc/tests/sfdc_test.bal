@@ -95,7 +95,7 @@ function insertJson() {
     if (insertJob is BulkJob) {
 
         //add json content
-        error|BatchInfo batch = insertJob.addBatch(contacts);
+        error|BatchInfo batch = insertJob->addBatch(contacts);
         if (batch is BatchInfo) {
             test:assertTrue(batch.id.length() > 0, msg = "Could not upload the contacts using json.");
             batchId = batch.id;

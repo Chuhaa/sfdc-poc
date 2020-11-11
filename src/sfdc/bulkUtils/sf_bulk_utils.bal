@@ -7,7 +7,7 @@ import ballerina/lang.'int as ints;
 # Check HTTP response and return JSON payload if succesful, else set errors and return Error.
 # + httpResponse - HTTP response or error occurred
 # + return - JSON response if successful else Error occured
-function checkJsonPayloadAndSetErrors(http:Response|error httpResponse) returns @tainted json|Error {
+function checkJsonPayloadAndSetErrors(http:Response|http:Payload|error httpResponse) returns @tainted json|Error {
     if (httpResponse is http:Response) {
 
         if (httpResponse.statusCode == http:STATUS_OK || httpResponse.statusCode == http:STATUS_CREATED 
@@ -22,6 +22,13 @@ function checkJsonPayloadAndSetErrors(http:Response|error httpResponse) returns 
         } else {
             return handleJsonErrorResponse(httpResponse);
         }
+    } else if (httpResponse is http:Payload) {
+        if (httpResponse is json) {
+            return httpResponse;
+        } else {
+            log:printError(JSON_ACCESSING_ERROR_MSG);
+            return Error(JSON_ACCESSING_ERROR_MSG);
+        }       
     } else {
         return handleHttpError(httpResponse);
     }

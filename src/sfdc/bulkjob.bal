@@ -2,7 +2,7 @@ import ballerina/http;
 import ballerina/io;
 
 # The Job object.
-public class BulkJob {
+public client class BulkJob {
     string jobId;
     JOBTYPE jobDataType;
     OPERATION operation;
@@ -19,7 +19,7 @@ public class BulkJob {
     #
     # + content - batch content 
     # + return - batch info or error
-    public function addBatch(json|string|xml|io:ReadableByteChannel content) returns @tainted error|BatchInfo{
+    public remote function addBatch(json|string|xml|io:ReadableByteChannel content) returns @tainted error|BatchInfo{
         string path = prepareUrl([SERVICES, ASYNC, BULK_API_VERSION, JOB, self.jobId, BATCH]);
         http:Request req = new;
         if(self.jobDataType == JSON) {

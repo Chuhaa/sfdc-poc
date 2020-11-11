@@ -10,7 +10,7 @@ public client class BaseClient{
         // Create an OAuth2 provider.
         oauth2:OutboundOAuth2Provider oauth2Provider = new(salesforceConfig.clientConfig);
         // Create a bearer auth handler using the a created provider.
-        SalesforceBulkAuthHandler bearerHandler = new(oauth2Provider);
+        SalesforceAuthHandler bearerHandler = new(oauth2Provider);
         http:ClientSecureSocket? socketConfig = salesforceConfig?.secureSocketConfig;
         // Create an HTTP client.
         if (socketConfig is http:ClientSecureSocket) {
@@ -40,7 +40,7 @@ public client class BaseClient{
     }
 
     private function getRecord(string path) returns @tainted json|Error {
-        http:Response|error response = self.salesforceClient->get(path);
+        http:Response|http:Payload|error response = self.salesforceClient->get(path);
         return checkAndSetErrors(response);
     }
 
